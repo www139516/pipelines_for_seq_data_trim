@@ -18,7 +18,5 @@ def main():
     cmd_proc.cmd_trim()
 
 
-
-
 if __name__ == '__main__':
     main()

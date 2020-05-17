@@ -18,7 +18,7 @@ class CmdProcessor:
     def fit(self, lst_paired_fpath):
         for dic_path in lst_paired_fpath:
             fname1 = os.path.basename(dic_path['fpath_r1'])
-            if re.findall(r'\.f[ast]?q\.gz$', fname1) or re.findall(r'\.f[ast]q$', fname1):
+            if re.findall(r'\.f(?:ast)?q\.gz$', fname1) or re.findall(r'\.f(?:ast)?q$', fname1):
                 self._in_lst_fpath_1.append(dic_path['fpath_r1'])
                 self._in_lst_fpath_2.append(dic_path['fpath_r2'])
 

@@ -31,7 +31,7 @@ class FilePorcessor:
             self._in_path = os.getcwd()
         else:
             self._in_path = path
-            self._in_path = self.get_the_abs_path()
+            self._in_path = self._get_the_abs_path()
         if os.path.isdir(self._in_path):
             self._in_dpath = self._in_path
             self._in_lst_fnames = os.listdir(self._in_dpath)
@@ -49,25 +49,27 @@ class FilePorcessor:
         return lst_fpaths
 
 
-    def get_the_abs_path(self):
+    def _get_the_abs_path(self):
         return os.path.abspath(self._in_path)
 
     def _get_the_paired_seq_file_path(self):
         self._in_lst_fnames.sort()
+        print(len(self._in_lst_fnames))
         for i in range(0, len(self._in_lst_fnames)-1):
             dic_pair_fname = dict()
             dic_pair_fpath = dict()
             j = i + 1
-            pre_fname_i = re.split(r'_[Rr][12]', self._in_lst_fnames[i])[0]
-            pre_fname_j = re.split(r'_[Rr][12]', self._in_lst_fnames[j])[0]
-            if pre_fname_i == pre_fname_j:
-                dic_pair_fname['fname_r1'] = self._in_lst_fnames[i]
-                dic_pair_fname['fname_r2'] = self._in_lst_fnames[j]
-                self._in_lst_paired_fnames.append(dic_pair_fname)
-                dic_pair_fpath['fpath_r1'] = os.path.join(self._in_dpath, dic_pair_fname['fname_r1'])
-                dic_pair_fpath['fpath_r2'] = os.path.join(self._in_dpath, dic_pair_fname['fname_r2'])
-                self._in_lst_paired_fpaths.append(dic_pair_fpath)
-
+            lst_fname_i = re.split(r'_[Rr][12]', self._in_lst_fnames[i])
+            for k in range(j, len(self._in_lst_fnames)):
+                lst_fname_k = re.split(r'_[Rr][12]', self._in_lst_fnames[k])
+                if lst_fname_i == lst_fname_k:
+                    dic_pair_fname['fname_r1'] = self._in_lst_fnames[i]
+                    dic_pair_fname['fname_r2'] = self._in_lst_fnames[k]
+                    self._in_lst_paired_fnames.append(dic_pair_fname)
+                    dic_pair_fpath['fpath_r1'] = os.path.join(self._in_dpath, dic_pair_fname['fname_r1'])
+                    dic_pair_fpath['fpath_r2'] = os.path.join(self._in_dpath, dic_pair_fname['fname_r2'])
+                    self._in_lst_paired_fpaths.append(dic_pair_fpath)
+                    break
 
     def get_paired_seq_fpaths(self):
         print(self._in_lst_paired_fpaths)
