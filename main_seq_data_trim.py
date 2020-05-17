@@ -3,6 +3,7 @@ This script is used for trimming SGS data
 """
 import argparse
 from processores.file_processor import FilePorcessor
+from processores.cmd_processor import CmdProcessor
 
 
 def main():
@@ -10,8 +11,11 @@ def main():
     parser.add_argument('-d', '--directory', help='The directory where you put the sequencing files.', default='')
     args = parser.parse_args()
     f_proc = FilePorcessor()
-    f_proc.fit(args.directory)
-    f_proc.print_paired_file()
+    f_proc = f_proc.fit(args.directory)
+    paired_seq_files = f_proc.get_paired_seq_fpaths()
+    cmd_proc = CmdProcessor()
+    cmd_proc.fit(paired_seq_files)
+    cmd_proc.cmd_trim()
 
 
 

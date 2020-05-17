@@ -21,7 +21,6 @@ class FilePorcessor:
         self._in_lst_fpaths = []
         self._in_lst_paired_fnames = []
         self._in_lst_paired_fpaths = []
-        self._out_dpath = None
 
     def fit(self, path=None):
         """
@@ -39,12 +38,8 @@ class FilePorcessor:
             self._in_lst_fpaths = self.get_the_fpath_lst()
         else:
             self._in_fpath = self._in_fpath
-
-        self._out_dpath = os.path.join(self._in_dpath, 'out')
-
-        if not self._out_dpath:
-            os.mkdir(self._out_dpath)
         self._get_the_paired_seq_file_path()
+        return self
 
     def get_the_fpath_lst(self):
         lst_fpaths = []
@@ -72,11 +67,12 @@ class FilePorcessor:
                 dic_pair_fpath['fpath_r1'] = os.path.join(self._in_dpath, dic_pair_fname['fname_r1'])
                 dic_pair_fpath['fpath_r2'] = os.path.join(self._in_dpath, dic_pair_fname['fname_r2'])
                 self._in_lst_paired_fpaths.append(dic_pair_fpath)
-        return self
 
-    def print_paired_file(self):
+
+    def get_paired_seq_fpaths(self):
         print(self._in_lst_paired_fpaths)
         print(self._in_lst_paired_fnames)
+        return self._in_lst_paired_fpaths
 
 
 
