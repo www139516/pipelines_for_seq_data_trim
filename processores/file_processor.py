@@ -56,6 +56,8 @@ class FilePorcessor:
         self._in_lst_fnames.sort()
         print(len(self._in_lst_fnames))
         for i in range(0, len(self._in_lst_fnames)-1):
+            if i >= len(self._in_lst_fnames)-1:
+                i = len(self._in_lst_fnames)-1
             dic_pair_fname = dict()
             dic_pair_fpath = dict()
             j = i + 1
@@ -63,8 +65,8 @@ class FilePorcessor:
             for k in range(j, len(self._in_lst_fnames)):
                 lst_fname_k = re.split(r'_[Rr][12]', self._in_lst_fnames[k])
                 if lst_fname_i == lst_fname_k:
-                    dic_pair_fname['fname_r1'] = self._in_lst_fnames[i]
-                    dic_pair_fname['fname_r2'] = self._in_lst_fnames[k]
+                    dic_pair_fname['fname_r1'] = self._in_lst_fnames.pop(i)
+                    dic_pair_fname['fname_r2'] = self._in_lst_fnames.pop(k-1)
                     self._in_lst_paired_fnames.append(dic_pair_fname)
                     dic_pair_fpath['fpath_r1'] = os.path.join(self._in_dpath, dic_pair_fname['fname_r1'])
                     dic_pair_fpath['fpath_r2'] = os.path.join(self._in_dpath, dic_pair_fname['fname_r2'])
