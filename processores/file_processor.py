@@ -33,7 +33,7 @@ class FilePorcessor:
         else:
             self._in_path = path
             self._in_path = self.get_the_abs_path()
-        if os.path.isdir():
+        if os.path.isdir(self._in_path):
             self._in_dpath = self._in_path
             self._in_lst_fnames = os.listdir(self._in_dpath)
             self._in_lst_fpaths = self.get_the_fpath_lst()
