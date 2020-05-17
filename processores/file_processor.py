@@ -53,20 +53,24 @@ class FilePorcessor:
         return os.path.abspath(self._in_path)
 
     def _get_the_paired_seq_file_path(self):
+        """
+        serch the files in the directory, and find the paired seq files, store them to the dic
+        :return: the list containing dict with paired seq files
+        """
         self._in_lst_fnames.sort()
-        print(len(self._in_lst_fnames))
+        print("Find {} files in the directory.".format(len(self._in_lst_fnames)))
+        # iterate all the file names in the fname list
         for i in range(0, len(self._in_lst_fnames)-1):
-            if i >= len(self._in_lst_fnames)-1:
-                i = len(self._in_lst_fnames)-1
             dic_pair_fname = dict()
             dic_pair_fpath = dict()
             j = i + 1
             lst_fname_i = re.split(r'_[Rr][12]', self._in_lst_fnames[i])
+            # search the files behind the ith file, find the one match the other file of paired file[i]
             for k in range(j, len(self._in_lst_fnames)):
                 lst_fname_k = re.split(r'_[Rr][12]', self._in_lst_fnames[k])
                 if lst_fname_i == lst_fname_k:
-                    dic_pair_fname['fname_r1'] = self._in_lst_fnames.pop(i)
-                    dic_pair_fname['fname_r2'] = self._in_lst_fnames.pop(k-1)
+                    dic_pair_fname['fname_r1'] = self._in_lst_fnames[i]
+                    dic_pair_fname['fname_r2'] = self._in_lst_fnames[k]
                     self._in_lst_paired_fnames.append(dic_pair_fname)
                     dic_pair_fpath['fpath_r1'] = os.path.join(self._in_dpath, dic_pair_fname['fname_r1'])
                     dic_pair_fpath['fpath_r2'] = os.path.join(self._in_dpath, dic_pair_fname['fname_r2'])
