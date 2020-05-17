@@ -44,6 +44,7 @@ class FilePorcessor:
 
         if not self._out_dpath:
             os.mkdir(self._out_dpath)
+        self._get_the_paired_seq_file_path()
 
     def get_the_fpath_lst(self):
         lst_fpaths = []
@@ -56,16 +57,29 @@ class FilePorcessor:
     def get_the_abs_path(self):
         return os.path.abspath(self._in_path)
 
-    def get_the_paired_seq_file_path(self):
-        lst_fname_r1 = []
-        lst_fname_r2 = []
-        pat = '_R2'
-        for fname_r2 in self._in_lst_fnames:
-            upper_name = fname_r2.upper()
-            if pat in upper_name:
-                lst_fname_r2.append(fname_r2)
-        for fname in lst_fname_r2:
-            fname_pre = re.split(r'_[Rr]2', fname)[0]
-            for fname in self._in_lst_fnames:
+    def _get_the_paired_seq_file_path(self):
+        self._in_lst_fnames.sort()
+        for i in range(0, len(self._in_lst_fnames)-1):
+            dic_pair_fname = dict()
+            dic_pair_fpath = dict()
+            j = i + 1
+            pre_fname_i = re.split(r'_[Rr][12]', self._in_lst_fnames[i])[0]
+            pre_fname_j = re.split(r'_[Rr][12]', self._in_lst_fnames[j])[0]
+            if pre_fname_i == pre_fname_j:
+                dic_pair_fname['fname_r1'] = self._in_lst_fnames[i]
+                dic_pair_fname['fname_r2'] = self._in_lst_fnames[j]
+                self._in_lst_paired_fnames.append(dic_pair_fname)
+                dic_pair_fpath['fpath_r1'] = os.path.join(self._in_dpath, dic_pair_fname['fname_r1'])
+                dic_pair_fpath['fpath_r2'] = os.path.join(self._in_dpath, dic_pair_fname['fname_r2'])
+                self._in_lst_paired_fpaths.append(dic_pair_fpath)
+        return self
+
+    def print_paired_file(self):
+        print(self._in_lst_paired_fpaths)
+        print(self._in_lst_paired_fnames)
+
+
+
+
                 
 
