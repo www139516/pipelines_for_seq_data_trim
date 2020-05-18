@@ -64,10 +64,10 @@ class FilePorcessor:
             dic_pair_fname = dict()
             dic_pair_fpath = dict()
             j = i + 1
-            lst_fname_i = re.split(r'_[Rr][12]', self._in_lst_fnames[i])
+            lst_fname_i = re.split(r'_[Rr]?[12]', self._in_lst_fnames[i])
             # search the files behind the ith file, find the one match the other file of paired file[i]
             for k in range(j, len(self._in_lst_fnames)):
-                lst_fname_k = re.split(r'_[Rr][12]', self._in_lst_fnames[k])
+                lst_fname_k = re.split(r'_[Rr]?[12]', self._in_lst_fnames[k])
                 if lst_fname_i == lst_fname_k:
                     dic_pair_fname['fname_r1'] = self._in_lst_fnames[i]
                     dic_pair_fname['fname_r2'] = self._in_lst_fnames[k]
