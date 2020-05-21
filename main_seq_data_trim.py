@@ -42,7 +42,9 @@ def main():
     fozu()
     parser = argparse.ArgumentParser(description="Trim the sequencing data in the directory.")
     parser.add_argument('-d', '--directory', help='The directory where you put the sequencing files.', default='')
-    parser.add_argument('-g', '--is_genome', help='"T" for sequencing data without poly A (genome sequencing data),\
+    parser.add_argument('-p', '--program', help='chose the program you wang to use (btrim or fqtrim, default is btrim)',
+                        default='btrim')
+    parser.add_argument('-g', '--is_genome', help='"T" for sequencing data without poly A (genome sequencing data, default),\
                                                    "F" for sequencing data with poly A (transcriptome sequencing data)',
                         default='T')
     args = parser.parse_args()
@@ -51,7 +53,13 @@ def main():
     paired_seq_files = f_proc.get_paired_seq_fpaths()
     cmd_proc = CmdProcessor()
     cmd_proc.fit(paired_seq_files, args.is_genome)
-    cmd_proc.cmd_trim()
+    if args.program.lower() == 'btrim':
+        cmd_proc.cmd_btrim()
+        cmd_proc.cmd_paired_seq_file()
+    elif args.program.lower() == 'fqtrim':
+        cmd_proc.cmd_fqtrim()
+    else:
+        print("Wrong program, please choose 'btrim', or 'fqtrim'.")
 
 
 if __name__ == '__main__':
