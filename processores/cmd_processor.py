@@ -71,6 +71,7 @@ class CmdProcessor:
                 raise SystemCommandError
 
     def cmd_btrim(self):
+
         for i in range(0, len(self._in_lst_fpath_1)):
             fpath_r1 = self._in_lst_fpath_1[i]
             fpath_r2 = self._in_lst_fpath_2[i]
@@ -98,6 +99,8 @@ class CmdProcessor:
             -a 20 -l 50 -s {sum_file}'.format(btrim64=self._btrim_path, in_file_path=fpath_r1,
                                                       out_file_path=btrim_out_fpath1,
                                                       sum_file=sum_fpath1)
+
+            print('Using btrim to process {}...'.format(fname1))
             if subprocess.check_call(cmd_btrim_r1, shell=True) != 0:
                 raise SystemCommandError
 
@@ -105,6 +108,7 @@ class CmdProcessor:
                         -a 20 -l 50 -s {sum_file}'.format(btrim64=self._btrim_path, in_file_path=fpath_r2,
                                                                   out_file_path=btrim_out_fpath2,
                                                                   sum_file=sum_fpath2)
+            print('Using btrim to process {}...'.format(fname2))
             if subprocess.check_call(cmd_btrim_r2, shell=True) != 0:
                 raise SystemCommandError
             return self
@@ -126,9 +130,13 @@ class CmdProcessor:
         cmd_compress = 'gzip {f_r1} && gzip {f_r2}'.format(f_r1=out_paired_fpath_r1,
                                                            f_r2=out_paired_fpath_r2)
 
+        print('Paring {f1} and {f2}...'.format(f1=os.path.basename(self._dic_btrim_out['fpath_r1']),
+                                               f2=os.path.basename(self._dic_btrim_out['fpath_r2'])))
         if subprocess.check_call(cmd_paired_seq, shell=True) != 0:
             raise SystemCommandError
 
+        print('Compressing paired files {f1} and {f2}...'.format(f1=out_paired_fname_r1,
+                                                                  f2=out_paired_fname_r2))
         if subprocess.check_call(cmd_compress, shell=True) != 0:
             raise SystemCommandError
 
