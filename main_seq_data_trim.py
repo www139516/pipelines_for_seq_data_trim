@@ -57,7 +57,7 @@ def main():
     cmd_proc.fit(paired_seq_files, args.is_genome)
     if args.program.lower() == 'btrim':
         cmd_proc.cmd_btrim()
-        cmd_proc.cmd_paired_seq_file()
+
     elif args.program.lower() == 'fqtrim':
         cmd_proc.cmd_fqtrim()
     else:

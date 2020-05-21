@@ -111,11 +111,13 @@ class CmdProcessor:
             print('Using btrim to process {}...'.format(fname2))
             if subprocess.check_call(cmd_btrim_r2, shell=True) != 0:
                 raise SystemCommandError
-            return self
+
+            self._cmd_paired_seq_file()
+        return self
 
 
 
-    def cmd_paired_seq_file(self):
+    def _cmd_paired_seq_file(self):
 
         cmd_paired_seq = '{paired_seq_file} {sum1} {sum2} {trim1} {trim2}'.format(paired_seq_file=self._paired_seq_file_path,
                                                                                   sum1=self._dic_btrim_out['sum_fpath_r1'],
@@ -126,6 +128,11 @@ class CmdProcessor:
         out_paired_fname_r2 = os.path.basename(self._dic_btrim_out['fpath_r2']) + '.pe'
         out_paired_fpath_r1 = os.path.join(self._out_dpath, out_paired_fname_r1)
         out_paired_fpath_r2 = os.path.join(self._out_dpath, out_paired_fname_r2)
+
+        out_unpaired_fname_r1 = os.path.basename(self._dic_btrim_out['fpath_r1']) + '.se'
+        out_unpaired_fname_r2 = os.path.basename(self._dic_btrim_out['fpath_r2']) + '.se'
+        out_unpaired_fpath_r1 = os.path.join(self._out_dpath, out_unpaired_fname_r1)
+        out_unpaired_fpath_r2 = os.path.join(self._out_dpath, out_unpaired_fname_r2)
 
         cmd_compress = 'gzip {f_r1} && gzip {f_r2}'.format(f_r1=out_paired_fpath_r1,
                                                            f_r2=out_paired_fpath_r2)
@@ -140,6 +147,18 @@ class CmdProcessor:
         if subprocess.check_call(cmd_compress, shell=True) != 0:
             raise SystemCommandError
 
+        print('Removing unnecessary files for {r1} and {r1}...'.format(r1=self._prefix_r1, r2=self._prefix_r2))
+        os.remove(self._dic_btrim_out['fpath_r1'])
+        os.remove(self._dic_btrim_out['fpath_r2'])
+        os.remove(self._dic_btrim_out['sum_fpath_r1'])
+        os.remove(self._dic_btrim_out['sum_fpath_r2'])
+        os.remove(out_unpaired_fpath_r1)
+        os.remove(out_unpaired_fpath_r2)
+        # cmd_rm = '''
+        # rm -f `ls {} | egrep -v "(pe.gz$)"`
+        # '''.format(self._out_dpath)
+        # if subprocess.check_call(cmd_rm, shell=True) != 0:
+        #     raise SystemCommandError
 
 
 
