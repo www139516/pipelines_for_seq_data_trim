@@ -102,7 +102,7 @@ class CmdProcessor:
                 raise SystemCommandError
 
             cmd_btrim_r2 = '{btrim64} -q -t {in_file_path} -o {out_file_path} \
-                        -a 20 -l 50 -s {prefix_r1}.fq.sum'.format(btrim64=self._btrim_path, in_file_path=fpath_r2,
+                        -a 20 -l 50 -s {sum_file}'.format(btrim64=self._btrim_path, in_file_path=fpath_r2,
                                                                   out_file_path=btrim_out_fpath2,
                                                                   sum_file=sum_fpath2)
             if subprocess.check_call(cmd_btrim_r2, shell=True) != 0:

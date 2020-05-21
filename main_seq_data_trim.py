@@ -45,7 +45,9 @@ def main():
     parser.add_argument('-p', '--program', help='chose the program you wang to use (btrim or fqtrim, default is btrim)',
                         default='btrim')
     parser.add_argument('-g', '--is_genome', help='"T" for sequencing data without poly A (genome sequencing data, default),\
-                                                   "F" for sequencing data with poly A (transcriptome sequencing data)',
+                                                   "F" for sequencing data with poly A (transcriptome sequencing data).\
+                                                  This option is only useful if you use fqtrim.',
+
                         default='T')
     args = parser.parse_args()
     f_proc = FilePorcessor()
