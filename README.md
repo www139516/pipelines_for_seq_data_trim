@@ -8,8 +8,8 @@ New trim tools will be added in the future up-grade.
 2. fqtrim:
 3. python >= 3.6
 ### Install
-git clone https://github.com/www139516/pipelines_for_seq_data_trim.git
-cd pipelines_for_seq_data_trim
-python your/path/to/pipelines_for_seq_data_trim/main_seq_data_trim.py -d <directory containing fq.gz files>
-For more information, just typing
+* git clone https://github.com/www139516/pipelines_for_seq_data_trim.git
+* cd pipelines_for_seq_data_trim
+* python your/path/to/pipelines_for_seq_data_trim/main_seq_data_trim.py -d <directory containing fq.gz files>
+### For more information, just typing
 **ython your/path/to/pipelines_for_seq_data_trim/main_seq_data_trim.py --help**
