@@ -12,4 +12,4 @@ New trim tools will be added in the future up-grade.
 * cd pipelines_for_seq_data_trim
 * python your/path/to/pipelines_for_seq_data_trim/main_seq_data_trim.py -d <directory containing fq.gz files>
 ### For more information, just typing
-**ython your/path/to/pipelines_for_seq_data_trim/main_seq_data_trim.py --help**
+**python your/path/to/pipelines_for_seq_data_trim/main_seq_data_trim.py --help**
