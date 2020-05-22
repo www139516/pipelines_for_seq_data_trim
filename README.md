@@ -1,6 +1,6 @@
 # pipelines_for_seq_data_trim
 
-This pipelines uses btrim or fqtrim to trim the adapors and low quality bases obtained by SGS.
+This pipeline uses btrim or fqtrim to trim the adapors and low quality bases obtained by SGS.
 Default is btrim.
 New trim tools will be added in the future up-grade.
 ### Depend packages
