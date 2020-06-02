@@ -14,6 +14,7 @@ class CmdProcessor:
         self._in_lst_fpath_2 = []
         self._wk_dpath = None
         self._out_dpath = None
+        # 86 does not have fqtrim
         # self._fqtrim_path = '/home/aggl/wyc/opt/biosoft/fqtrim-0.9.7.Linux_x86_64/fqtrim'  # for jaas server
         # self._fqtrim_path = '/home/wangyc/opt/biosoft/fqtrim-0.9.7.Linux_x86_64/fqtrim'  # for 87 server
         self._btrim_path = '/home/han/opt/btrim64'  # for 86 server
