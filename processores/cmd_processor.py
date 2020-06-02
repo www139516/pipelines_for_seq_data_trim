@@ -14,9 +14,13 @@ class CmdProcessor:
         self._in_lst_fpath_2 = []
         self._wk_dpath = None
         self._out_dpath = None
-        self._fqtrim_path = '/home/aggl/wyc/opt/biosoft/fqtrim-0.9.7.Linux_x86_64/fqtrim'
-        self._btrim_path = '/home/aggl/wyc/opt/biosoft/btrim64'
-        self._paired_seq_file_path = '/public/usr/local/bin/paired_end_trim.pl'
+        # self._fqtrim_path = '/home/aggl/wyc/opt/biosoft/fqtrim-0.9.7.Linux_x86_64/fqtrim'  # for jaas server
+        # self._fqtrim_path = '/home/wangyc/opt/biosoft/fqtrim-0.9.7.Linux_x86_64/fqtrim'  # for 87 server
+        self._btrim_path = '/home/han/opt/btrim64'  # for 86 server
+        # self._btrim_path = '/home/aggl/wyc/opt/biosoft/btrim64'  # for jaas server
+        # self._btrim_path = '/home/wangyc/opt/biosoft/btrim64'  # for 87 server
+        # self._paired_seq_file_path = '/public/usr/local/bin/paired_end_trim.pl'  # for jaas server
+        self._paired_seq_file_path = '/home/han/opt/paired_end_trim.pl'  # for 86 server
         self._is_genome = None
         self._prefix_r1 = None
         self._prefix_r2 = None
@@ -45,8 +49,8 @@ class CmdProcessor:
             fpath_r2 = self._in_lst_fpath_2[i]
             fname1 = os.path.basename(fpath_r1)
             fname2 = os.path.basename(fpath_r2)
-            self._prefix_r1 = re.split(r'.f(?:ast)q', fname1)[0]
-            self._prefix_r2 = re.split(r'.f(?:ast)q', fname2)[0]
+            self._prefix_r1 = re.split(r'.f(?:ast)?q', fname1)[0]
+            self._prefix_r2 = re.split(r'.f(?:ast)?q', fname2)[0]
             print('Trimming {f1} and {f2}......'.format(f1=fname1, f2=fname2))
             if self._is_genome.upper() == 'T':
                 cmd = '{fqtrim} -A -l 50 -q 20 --outdir {outdir} -o trimmed.fq.gz {seq_f1},{seq_f2}'.format(
@@ -77,8 +81,8 @@ class CmdProcessor:
             fpath_r2 = self._in_lst_fpath_2[i]
             fname1 = os.path.basename(fpath_r1)
             fname2 = os.path.basename(fpath_r2)
-            self._prefix_r1 = re.split(r'.f(?:ast)q', fname1)[0]
-            self._prefix_r2 = re.split(r'.f(?:ast)q', fname2)[0]
+            self._prefix_r1 = re.split(r'.f(?:ast)?q', fname1)[0]
+            self._prefix_r2 = re.split(r'.f(?:ast)?q', fname2)[0]
             btrim_out_fname1 = self._prefix_r1 + '.btrim.fq'
             btrim_out_fname2 = self._prefix_r2 + '.btrim.fq'
             btrim_out_fpath1 = os.path.join(self._out_dpath, btrim_out_fname1)
@@ -113,6 +117,10 @@ class CmdProcessor:
                 raise SystemCommandError
 
             self._cmd_paired_seq_file()
+            # Remove the original fq files, Be careful.
+            print('Removing the original fq files...')
+            os.remove(fpath_r1)
+            os.remove(fpath_r2)
         return self
 
 
@@ -159,6 +167,7 @@ class CmdProcessor:
         # '''.format(self._out_dpath)
         # if subprocess.check_call(cmd_rm, shell=True) != 0:
         #     raise SystemCommandError
+
 
 
 
