@@ -119,9 +119,9 @@ class CmdProcessor:
 
             self._cmd_paired_seq_file()
             # Remove the original fq files, Be careful.
-            print('Removing the original fq files...')
-            os.remove(fpath_r1)
-            os.remove(fpath_r2)
+            print(f'Removing the original fq files...{fname1}...{fname2}...')
+            # os.remove(fpath_r1)
+            # os.remove(fpath_r2)
         return self
 
 
