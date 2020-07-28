@@ -1,6 +1,8 @@
 """
 This script is used for trimming SGS data
 """
+#!/usr/bin/python
+# -*- coding: <encoding name> -*-
 import argparse
 from processores.file_processor import FilePorcessor
 from processores.cmd_processor import CmdProcessor

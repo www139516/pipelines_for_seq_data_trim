@@ -17,11 +17,18 @@ class CmdProcessor:
         # 86 does not have fqtrim
         # self._fqtrim_path = '/home/aggl/wyc/opt/biosoft/fqtrim-0.9.7.Linux_x86_64/fqtrim'  # for jaas server
         # self._fqtrim_path = '/home/wangyc/opt/biosoft/fqtrim-0.9.7.Linux_x86_64/fqtrim'  # for 87 server
-        self._btrim_path = '/home/han/opt/btrim64'  # for 86 server
+
+
+        # self._btrim_path = '/home/han/opt/btrim64'  # for 86 server
         # self._btrim_path = '/home/aggl/wyc/opt/biosoft/btrim64'  # for jaas server
         # self._btrim_path = '/home/wangyc/opt/biosoft/btrim64'  # for 87 server
+        self._btrim_path = '/home/zhaohan/opt/btrim64'
+
         # self._paired_seq_file_path = '/public/usr/local/bin/paired_end_trim.pl'  # for jaas server
-        self._paired_seq_file_path = '/home/han/opt/paired_end_trim.pl'  # for 86 server
+        # self._paired_seq_file_path = '/home/han/opt/paired_end_trim.pl'  # for 86 server
+        # self._paired_seq_file_path = '/home/wangyc/opt/biosoft/paired_end_trim.pl' # for 87 server
+        self._paired_seq_file_path = '/home/zhaohan/opt/paired_end_trim.pl'
+
         self._is_genome = None
         self._prefix_r1 = None
         self._prefix_r2 = None
@@ -54,7 +61,7 @@ class CmdProcessor:
             self._prefix_r2 = re.split(r'.f(?:ast)?q', fname2)[0]
             print('Trimming {f1} and {f2}......'.format(f1=fname1, f2=fname2))
             if self._is_genome.upper() == 'T':
-                cmd = '{fqtrim} -A -l 50 -q 20 --outdir {outdir} -o trimmed.fq.gz {seq_f1},{seq_f2}'.format(
+                cmd = '{fqtrim} -A -l 140 -q 20 --outdir {outdir} -o trimmed.fq.gz {seq_f1},{seq_f2}'.format(
                     fqtrim=self._fqtrim_path,
                     outdir=self._out_dpath,
                     seq_f1=fpath_r1,
@@ -101,7 +108,7 @@ class CmdProcessor:
                                    'sum_fpath_r1': btrim_out_sum_path1,
                                    'sum_fpath_r2': btrim_out_sum_path2}
             cmd_btrim_r1 = '{btrim64} -q -t {in_file_path} -o {out_file_path} \
-            -a 20 -l 50 -s {sum_file}'.format(btrim64=self._btrim_path, in_file_path=fpath_r1,
+                        -a 20 -l 50 -s {sum_file}'.format(btrim64=self._btrim_path, in_file_path=fpath_r1,
                                                       out_file_path=btrim_out_fpath1,
                                                       sum_file=sum_fpath1)
 
